@@ -34,11 +34,12 @@ webmasters_service = build('webmasters', 'v3', http=http)
 # https://developers.google.com/resources/api-libraries/documentation/webmasters/v3/python/latest/webmasters_v3.urlcrawlerrorssamples.html#list
 # http://google.github.io/google-api-python-client/docs/epy/googleapiclient.http.HttpRequest-class.html
 
+rowLimit = 25000
 
 retrieve_search_queries = webmasters_service.searchanalytics().query(
     siteUrl='ENTER-YOURS-HERE',
     body={
-        "startDate": "2019-03-25",
+        "startDate": "2019-01-01",
         "endDate": "2019-03-31",
         "dimensions": ["query"],
         "dimensionFilterGroups": [
@@ -53,14 +54,13 @@ retrieve_search_queries = webmasters_service.searchanalytics().query(
                 }
             ],
         "aggregationType": "auto",
-        "rowLimit": 25000
+        "rowLimit": rowLimit
         }
     ).execute()
 
-for i in range(0, 25000):
-    results_file = open("results.txt", "a+")
-    #keys1 = retrieve_search_queries['rows'][i]['keys'][0].encode()
-    #keys2 = retrieve_search_queries['rows'][i]['keys'][1].encode()
+results_file = open("results.txt", "a+")
+
+for i in range(0, rowLimit):
     keys = retrieve_search_queries['rows'][i]['keys']
     impressions = retrieve_search_queries['rows'][i]['impressions']
     clicks = retrieve_search_queries['rows'][i]['clicks']
@@ -68,6 +68,5 @@ for i in range(0, 25000):
     position = retrieve_search_queries['rows'][i]['position']
     print ("%s|%s|%s|%s|%s\n" % (keys, impressions, clicks, ctr, position))
     results_file.write ("%s|%s|%s|%s|%s\n" % (keys, impressions, clicks, ctr, position))
-    #print ("%s|%s|%s|%s|%s|%s\n" % (keys1, keys2, impressions, clicks, ctr, position))
-    #results_file.write ("%s|%s|%s|%s|%s|%s\n" % (keys1, keys2, impressions, clicks, ctr, position))
-    results_file.close()
+
+results_file.close()
