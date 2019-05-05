@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import httplib2
 
 from apiclient import errors
