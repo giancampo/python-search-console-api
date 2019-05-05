@@ -1,3 +1,6 @@
+# written in Python 2.7: this will probably cause compatibility issues with later versions of Python
+# please run it and check out for compatibility errors
+
 import httplib2
 
 from apiclient import errors
