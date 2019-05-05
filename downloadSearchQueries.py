@@ -1,4 +1,4 @@
-# written in Python 2: This will probably cause compatibility issues with later versions of Python
+# originally written in Python 2: This will probably cause compatibility issues with later versions of Python
 # please run it and check out for compatibility errors
 
 import httplib2
@@ -22,7 +22,8 @@ REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 flow = OAuth2WebServerFlow(CLIENT_ID, CLIENT_SECRET, OAUTH_SCOPE, REDIRECT_URI)
 authorize_url = flow.step1_get_authorize_url()
 print ('Go to the following link in your browser: ' + authorize_url)
-code = raw_input('Enter verification code: ').strip()
+# code = raw_input('Enter verification code: ').strip() # version for Python 2
+code = input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 
 # Create an httplib2.Http object and authorize it with our credentials
